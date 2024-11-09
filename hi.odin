@@ -3,9 +3,15 @@ package main
 import "core:fmt"
 import "core:mem"
 import "core:strings"
-import ray "vendor:raylib"
+import "vendor:raylib"
+
+Res32 :: struct {
+	x: i32,
+	y: i32,
+}
 
 main :: proc() {
+	fmt.println("main :: proc ## running")
 	// code: https://odin-lang.org/docs/overview/#tracking-allocator
 	when ODIN_DEBUG || true {
 		track: mem.Tracking_Allocator
@@ -29,25 +35,24 @@ main :: proc() {
 		}
 	}
 
-
-	width: i32 = 800
-	height: i32 = 600
-
+	res: Res32 = {800, 600}
 	frame := 0
 
-	ray.InitWindow(width, height, "Lovely Title")
-	ray.SetTargetFPS(60)
+	using raylib
 
-	for !ray.WindowShouldClose() {
+	InitWindow(res.x, res.y, "Lovely Title")
+	SetTargetFPS(60)
+
+	for !WindowShouldClose() {
 		frame += 1
-		ray.BeginDrawing()
-		ray.ClearBackground(ray.RAYWHITE)
-		ray.DrawText("Hello!", 50, 50, 14, ray.LIGHTGRAY)
+		BeginDrawing()
+		ClearBackground(RAYWHITE)
+		DrawText("Hello!", 50, 50, 14, LIGHTGRAY)
 		msg: cstring = fmt.ctprintf("frame: %d", frame)
 
 
-		ray.DrawText(msg, 150, 50, 14, ray.DARKPURPLE)
-		ray.EndDrawing()
+		DrawText(msg, 150, 50, 14, DARKPURPLE)
+		EndDrawing()
 	}
-	ray.CloseWindow()
+	CloseWindow()
 }
