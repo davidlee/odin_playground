@@ -1,1 +1,5 @@
 odin
+*.a
+*.o
+*.out
+*.dylib
