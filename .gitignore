@@ -1,4 +1,5 @@
 odin
+odin.dSYM/
 *.a
 *.o
 *.out
